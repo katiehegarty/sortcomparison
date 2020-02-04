@@ -1,6 +1,5 @@
 import java.util.Arrays;
-
-/ -------------------------------------------------------------------------
+import java.util.Objects; 
 
 /**
  *  This class contains static methods that implementing sorting of an array of numbers
@@ -69,23 +68,31 @@ class SortComparison {
 	 * @return array sorted in ascending order
 	 *
 	 */
-	static double [] quickSort (double a[]){
-
-		//todo: implement the sort
-
-	}//end quicksort
-
-	static double partition(Comparable[] numbers, int lo, int hi) {
+	static double [] quickSort (double [] a){
+		return sortQuick(a, 0, a.length);
+		
+	}                                                                                      
+	static double[] sortQuick(double[] a, int lo, int hi) {
+		
+		if(lo<hi) {
+			int pivot = partition(a, lo, hi);
+			sortQuick(a, lo, pivot-1);
+			sortQuick(a, pivot+1, hi);
+		}
+		return a;
+	}
+	
+	static int partition(double[] numbers, int lo, int hi) {
 		int i=lo;
 		int j = hi+1;
-		Comparable pivot = numbers[lo];
+		double pivot = numbers[lo];
 		while(true) {
-			while((numbers[++i].compareTo(pivot)<0)) {
+			while((numbers[++i]<pivot)) {
 				if(i==hi) {
 					break;
 				}
 			}
-			while((pivot.compareTo(numbers[--j]) < 0)) {
+			while((pivot< (numbers[--j]))) {
 				if(j==lo) {
 					break;
 				}
@@ -93,7 +100,7 @@ class SortComparison {
 			if(i>=j) {
 				break;
 			}
-			Comparable temp=numbers[i];
+			double temp=numbers[i];
 			numbers[i] = numbers[j];
 			numbers[j] = temp;
 		}
