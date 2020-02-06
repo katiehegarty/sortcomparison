@@ -69,7 +69,7 @@ class SortComparison {
 	 *
 	 */
 	static double [] quickSort (double [] a){
-		return sortQuick(a, 0, a.length);
+		return sortQuick(a, 0, a.length-1);
 		
 	}                                                                                      
 	static double[] sortQuick(double[] a, int lo, int hi) {
@@ -124,13 +124,71 @@ class SortComparison {
 	 */
 
 	static double[] mergeSortIterative (double a[]) {
-
-		//todo: implement the sort
-
-	}//end mergesortIterative
-
-
-
+		int n=a.length;
+		double [] left;
+		double [] right;
+		
+		if (n % 2 == 0) {
+	        left = new double[n/2];
+	        right = new double[n/2];
+	    } 
+	    else {
+	        left = new double[n/2];
+	        right = new double[n/2+1];
+	    }
+		
+		for (int i = 0; i < n; i++) {
+	        if (i < n/2) {
+	            left[i] = a[i];
+	        }
+	        else {
+	            right[i-n/2] = a[i];
+	        }
+	    }
+		sort(left);
+		sort(right);
+		double[] result = Arrays.;
+		return //?? 
+		
+	}
+	
+	public static void sort(double[] a) {
+		double[] aux = new double[a.length];
+		sort(a, aux, 0, a.length-1);
+	}
+	
+	private static void sort(double[] a, double[] aux, int lo, int hi) {
+		if(hi<=lo) {
+			return;
+		}
+		int midpoint = lo +(hi-lo)/2;
+		sort(a, aux, lo, midpoint);
+		sort(a, aux, midpoint+1, hi);
+		merge(a, aux, lo, midpoint, hi);
+	}
+	
+	private static void merge(double[] a, double[] aux, int lo, int mid, int hi) {
+		for(int k=lo; k <=hi; k++) {
+			aux[k] = a[k];
+		}
+		int i=lo;
+		int j=mid+1;
+		for(int k =lo; k<=hi; k++) {
+			if(i>mid) {
+				a[k]=aux[j++];
+			}
+			else if(j>hi) {
+				a[k] = aux[i++];
+			}
+			else if(aux[j]<aux[i]) {
+				a[k] = aux[j++];
+			}
+			else {
+				a[k] = aux[i++];
+			}
+		}
+		
+	}
 	/**
 	 * Sorts an array of doubles using recursive implementation of Merge Sort.
 	 * This method is static, thus it can be called as SortComparison.sort(a)
@@ -153,7 +211,10 @@ class SortComparison {
 
 	public static void main(String[] args) {
 
-		//todo: do experiments as per assignment instructions
+		double [] a = {4, 6, 97, 1, 23, 53, 75, 45};
+		System.out.println(Arrays.toString(mergeSortIterative(a)));
+		
+		
 	}
 
 }//end class
