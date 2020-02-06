@@ -123,6 +123,7 @@ class SortComparison {
 	 * @return after the method returns, the array must be in ascending sorted order.
 	 */
 
+	// cant figure out merge sort top down? try write out maybe
 	static double[] mergeSortIterative (double a[]) {
 		int n=a.length;
 		double [] left;
@@ -198,23 +199,24 @@ class SortComparison {
 	 */
 	static double[] mergeSortRecursive (double a[]) {
 
+		int n=a.length;
+		double[] aux = new double[n];
+		for(int i=1; i<n; i=i+i) {
+			for(int low=0; low < n-i; low+=i+i) {
+				merge(a, aux, low, low+i-1, Math.min(low+i+i-1, n-1));
+			}
+		}
+		return a;
 
-		//todo: implement the sort
-
-	}//end mergeSortRecursive
-
-
-
-
-
+	}
 
 
 	public static void main(String[] args) {
 
 		double [] a = {4, 6, 97, 1, 23, 53, 75, 45};
-		System.out.println(Arrays.toString(mergeSortIterative(a)));
+		System.out.println(Arrays.toString(mergeSortRecursive(a)));
 		
 		
 	}
 
-}//end class
+}
