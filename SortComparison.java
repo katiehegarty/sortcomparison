@@ -40,25 +40,21 @@ class SortComparison {
 	 * @return array sorted in ascending order
 	 *
 	 */
-	static double [] selectionSort (double a[]){
 
-		// get the length
-	    int n = a.length;
-	    for (int i = 0; i < n; i++) {
-	        int index = 0;
-	        double smallest = a[i];
-	        for (int j = i; j < n; j++) {
-	            if (a[j] < smallest) {
-	                smallest = a[j];
-	                index = j;
-	            }
-	        double temp = a[i];
-	        a[i] = smallest;
-	        a[index] = temp;
-	    }
-	   } 
-	    return a;
-
+	static double [] selectionSort(double a[]) {
+		int n=a.length;
+		for(int i = 0; i<n-1; i++) {
+			int min = i;
+			for(int j = i+1; j<n; j++) {
+				if(a[j] < a[min]) {
+					min =j;
+				}
+			}
+			double temp = a[min];
+			a[min] = a[i];
+			a[i] = temp;
+		}
+		return a;
 	}
 
 	/**
@@ -122,36 +118,51 @@ class SortComparison {
 	 * @param a: An unsorted array of doubles.
 	 * @return after the method returns, the array must be in ascending sorted order.
 	 */
-
-	// cant figure out merge sort top down? try write out maybe
-	static double[] mergeSortIterative (double a[]) {
-		int n=a.length;
-		double [] left;
-		double [] right;
+	static double [] mergeSortIterative(double [] a) {
+		int mid=a.length/2;
 		
-		if (n % 2 == 0) {
-	        left = new double[n/2];
-	        right = new double[n/2];
-	    } 
-	    else {
-	        left = new double[n/2];
-	        right = new double[n/2+1];
-	    }
+		double [] left = new double[mid];
+		for(int i=0; i<mid; i++) {
+			left[i] = a[i];
+		}
 		
-		for (int i = 0; i < n; i++) {
-	        if (i < n/2) {
-	            left[i] = a[i];
-	        }
-	        else {
-	            right[i-n/2] = a[i];
-	        }
-	    }
-		sort(left);
-		sort(right);
-		double[] result = Arrays.;
-		return //?? 
-		
+		double [] right = new double[a.length - mid];
+		for(int i=mid; i<a.length; i++) {
+			right[i-mid] = a[i];
+		}
+		mergeSortIterative(left);
+		mergeSortIterative(right);
+		return a;
 	}
+	
+//	static double[] mergeSortIterative (double a[]) {
+//		int n=a.length;
+//		double [] left;
+//		double [] right;
+//		
+//		if (n % 2 == 0) {
+//	        left = new double[n/2];
+//	        right = new double[n/2];
+//	    } 
+//	    else {
+//	        left = new double[n/2];
+//	        right = new double[n/2+1];
+//	    }
+//		
+//		for (int i = 0; i < n; i++) {
+//	        if (i < n/2) {
+//	            left[i] = a[i];
+//	        }
+//	        else {
+//	            right[i-n/2] = a[i];
+//	        }
+//	    }
+//		sort(left);
+//		sort(right);
+//		double[] result = Arrays.;
+//		return //?? 
+//		
+//	}
 	
 	public static void sort(double[] a) {
 		double[] aux = new double[a.length];
@@ -214,7 +225,7 @@ class SortComparison {
 	public static void main(String[] args) {
 
 		double [] a = {4, 6, 97, 1, 23, 53, 75, 45};
-		System.out.println(Arrays.toString(mergeSortRecursive(a)));
+		System.out.println(Arrays.toString(selectionSort(a)));
 		
 		
 	}
