@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Objects; 
 
 /**
  *  This class contains static methods that implementing sorting of an array of numbers
@@ -119,51 +118,16 @@ class SortComparison {
 	 * @return after the method returns, the array must be in ascending sorted order.
 	 */
 	static double [] mergeSortIterative(double [] a) {
-		int mid=a.length/2;
-		
-		double [] left = new double[mid];
-		for(int i=0; i<mid; i++) {
-			left[i] = a[i];
+		int n=a.length;
+		double[] aux = new double[n];
+		for(int i=1; i<n; i=i+i) {
+			for(int low=0; low < n-i; low+=i+i) {
+				merge(a, aux, low, low+i-1, Math.min(low+i+i-1, n-1));
+			}
 		}
-		
-		double [] right = new double[a.length - mid];
-		for(int i=mid; i<a.length; i++) {
-			right[i-mid] = a[i];
-		}
-		mergeSortIterative(left);
-		mergeSortIterative(right);
 		return a;
 	}
-	
-//	static double[] mergeSortIterative (double a[]) {
-//		int n=a.length;
-//		double [] left;
-//		double [] right;
-//		
-//		if (n % 2 == 0) {
-//	        left = new double[n/2];
-//	        right = new double[n/2];
-//	    } 
-//	    else {
-//	        left = new double[n/2];
-//	        right = new double[n/2+1];
-//	    }
-//		
-//		for (int i = 0; i < n; i++) {
-//	        if (i < n/2) {
-//	            left[i] = a[i];
-//	        }
-//	        else {
-//	            right[i-n/2] = a[i];
-//	        }
-//	    }
-//		sort(left);
-//		sort(right);
-//		double[] result = Arrays.;
-//		return //?? 
-//		
-//	}
-	
+		
 	public static void sort(double[] a) {
 		double[] aux = new double[a.length];
 		sort(a, aux, 0, a.length-1);
@@ -209,23 +173,17 @@ class SortComparison {
 	 * @return after the method returns, the array must be in ascending sorted order.
 	 */
 	static double[] mergeSortRecursive (double a[]) {
-
-		int n=a.length;
-		double[] aux = new double[n];
-		for(int i=1; i<n; i=i+i) {
-			for(int low=0; low < n-i; low+=i+i) {
-				merge(a, aux, low, low+i-1, Math.min(low+i+i-1, n-1));
-			}
-		}
+		double[] aux = new double[a.length];
+		sort(a, aux, 0, a.length-1);
 		return a;
-
 	}
 
 
 	public static void main(String[] args) {
 
 		double [] a = {4, 6, 97, 1, 23, 53, 75, 45};
-		System.out.println(Arrays.toString(selectionSort(a)));
+		System.out.println(Arrays.toString(mergeSortIterative(a)));
+		System.out.println(Arrays.toString(mergeSortRecursive(a)));
 		
 		
 	}

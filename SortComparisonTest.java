@@ -1,4 +1,3 @@
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import org.junit.Test;
@@ -30,8 +29,12 @@ public class SortComparisonTest {
 		double []a = {2, 78, 9, 13, 50};
 		double [] sortedArray = {2, 9, 13, 50, 78};
 		assertArrayEquals(sortedArray, SortComparison.mergeSortRecursive(a));
-		
 	}
 	
-	//need to sort iterative !!
+	@Test
+	public void testMergeSortIterative() {
+		double []a = {2, 78, 9, 13, 50};
+		double [] sortedArray = {2, 9, 13, 50, 78};
+		assertArrayEquals(sortedArray, SortComparison.mergeSortIterative(a));
+	}
 }
